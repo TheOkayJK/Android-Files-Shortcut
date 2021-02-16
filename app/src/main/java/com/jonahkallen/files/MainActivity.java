@@ -1,17 +1,23 @@
 package com.jonahkallen.files;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
+
 import java.util.Objects;
 
 public class MainActivity extends Activity {
     static String filesPackageNew = "com.google.android.documentsui";
     static String filesPackageOld = "com.android.documentsui";
+    static String filesActivityNew = "com.android.documentsui.files.FilesActivity";
+    static String filesActivityOld = "com.android.documentsui.files.FilesActivity";
+    static String filesActivityReallyOld = "com.android.documentsui.FilesActivity";
     static String packageName = BuildConfig.APPLICATION_ID;
 
     @Override
@@ -20,14 +26,14 @@ public class MainActivity extends Activity {
         PackageManager pm = this.getPackageManager();
         if(filesAppExists(filesPackageNew, pm)){
             try {
-                startFiles(this, filesPackageNew);
+                startFiles(getApplicationContext(), filesPackageNew);
                 finish();
             } catch(Exception e){
                 incompatibleDevice();
             }
         } else if (filesAppExists(filesPackageOld, pm)){
             try {
-                startFiles(this, filesPackageOld);
+                startFiles(getApplicationContext(), filesPackageOld);
                 finish();
             } catch(Exception e){
                 incompatibleDevice();
@@ -39,12 +45,41 @@ public class MainActivity extends Activity {
 
     public void startFiles(Context context, String packageName) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent == null) {
-            incompatibleDevice();
+        if(intent == null) {
+            try {
+                Intent intenter = new Intent(Intent.ACTION_MAIN);
+                intenter.setComponent(new ComponentName(filesPackageNew,filesActivityNew));
+                startActivity(intenter);
+                finish();
+            } catch(Exception e) {
+                tryOlderFiles();
+            }
         }
         Objects.requireNonNull(intent).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             context.startActivity(intent);
+        } catch(Exception e) {
+            incompatibleDevice();
+        }
+    }
+
+    public void tryOlderFiles() {
+        try {
+            Intent intentier = new Intent(Intent.ACTION_MAIN);
+            intentier.setComponent(new ComponentName(filesPackageOld,filesActivityOld));
+            startActivity(intentier);
+            finish();
+        } catch(Exception e) {
+            tryEvenOlderFiles();
+        }
+    }
+
+    public void tryEvenOlderFiles() {
+        try {
+            Intent intentiest = new Intent(Intent.ACTION_MAIN);
+            intentiest.setComponent(new ComponentName(filesPackageOld,filesActivityReallyOld));
+            startActivity(intentiest);
+            finish();
         } catch(Exception e) {
             incompatibleDevice();
         }
