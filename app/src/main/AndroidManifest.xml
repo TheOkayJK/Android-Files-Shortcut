@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jonahkallen.files" >
 
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -11,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:exported="true"
+        android:theme="@style/Theme.AppCompat"
         tools:ignore="AllowBackup" >
         <activity android:name=".MainActivity" >
             <intent-filter>
@@ -20,4 +23,8 @@
         </activity>
     </application>
 
+    <queries>
+        <package android:name="com.android.documentsui"/>
+        <package android:name="com.google.android.documentsui"/>
+    </queries>
 </manifest>
