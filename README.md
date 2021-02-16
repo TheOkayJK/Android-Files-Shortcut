@@ -1,5 +1,5 @@
 # Android Files Shortcut
-A simple fast shortcut for the files app on Android.
+A simple, fast, and open-source shortcut to the built in Android file manager.
 
 The icon is hidden on some devices so this just restores easy access to it.
 
