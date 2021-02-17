@@ -1,4 +1,4 @@
-# This privacy policy will help you understand how I, Jonah (JK) Kallen uses and protects the data you provide to us when you visit and use Android Files Shortcut.
+# This privacy policy will help you understand how I, Jonah (JK) Kallen use and protect the data you provide to me when you visit and use Android Files Shortcut.
 
 # **SPOILER ALERT**
 
