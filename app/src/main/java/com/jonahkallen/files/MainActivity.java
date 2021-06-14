@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
         if(filesAppExists(filesPackageNew, pm)){
             try {
                 startFiles(getApplicationContext(), filesPackageNew);
+                overridePendingTransition(0, 0);
                 finish();
             } catch(Exception e){
                 incompatibleDevice();
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
         } else if (filesAppExists(filesPackageOld, pm)){
             try {
                 startFiles(getApplicationContext(), filesPackageOld);
+                overridePendingTransition(0, 0);
                 finish();
             } catch(Exception e){
                 incompatibleDevice();
@@ -50,6 +52,7 @@ public class MainActivity extends Activity {
                 Intent intenter = new Intent(Intent.ACTION_MAIN);
                 intenter.setComponent(new ComponentName(filesPackageNew,filesActivityNew));
                 startActivity(intenter);
+                overridePendingTransition(0, 0);
                 finish();
             } catch(Exception e) {
                 tryOlderFiles();
@@ -58,6 +61,7 @@ public class MainActivity extends Activity {
         Objects.requireNonNull(intent).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             context.startActivity(intent);
+            overridePendingTransition(0, 0);
         } catch(Exception e) {
             incompatibleDevice();
         }
@@ -68,6 +72,7 @@ public class MainActivity extends Activity {
             Intent intentier = new Intent(Intent.ACTION_MAIN);
             intentier.setComponent(new ComponentName(filesPackageOld,filesActivityOld));
             startActivity(intentier);
+            overridePendingTransition(0, 0);
             finish();
         } catch(Exception e) {
             tryEvenOlderFiles();
@@ -79,6 +84,7 @@ public class MainActivity extends Activity {
             Intent intentiest = new Intent(Intent.ACTION_MAIN);
             intentiest.setComponent(new ComponentName(filesPackageOld,filesActivityReallyOld));
             startActivity(intentiest);
+            overridePendingTransition(0, 0);
             finish();
         } catch(Exception e) {
             incompatibleDevice();
